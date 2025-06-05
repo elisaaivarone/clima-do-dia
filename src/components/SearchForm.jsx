@@ -1,7 +1,6 @@
-import { useState } from "react";
-import { FiSearch } from "react-icons/fi";
+import React, { useState } from "react";
 
-export default function SearchForm({ onSearch }) {
+const SearchForm = ({ onSearch }) => {
   const [cidade, setCidade] = useState("");
 
   const handleSubmit = (e) => {
@@ -13,21 +12,27 @@ export default function SearchForm({ onSearch }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex justify-center gap-4 my-4">
+    <form
+      onSubmit={handleSubmit}
+      className="flex w-full max-w-md mx-auto gap-2 mt-6"
+    >
       <input
         type="text"
-        placeholder="Digite uma cidade..."
+        placeholder="Digite a cidade"
         value={cidade}
         onChange={(e) => setCidade(e.target.value)}
-        className="border border-gray-300 rounded px-4 py-2 w-64"
+        className="flex-1 p-2 rounded-md shadow-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:text-white dark:border-gray-600"
       />
       <button
         type="submit"
-        className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600"
+        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md shadow transition"
       >
-        <FiSearch className="inline mr-2" />
         Buscar
       </button>
     </form>
   );
-}
+};
+
+export default SearchForm;
+
+ 

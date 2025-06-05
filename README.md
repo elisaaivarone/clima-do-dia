@@ -1,12 +1,54 @@
-# React + Vite
+# 🌤️ Clima do Dia
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicativo web que permite buscar o clima atual de qualquer cidade, além da previsão para os próximos dias, com suporte a tema claro/escuro e interface responsiva.
 
-Currently, two official plugins are available:
+![screenshot](./screenshot.png) 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Funcionalidades
 
-## Expanding the ESLint configuration
+- 🔍 Busca por nome da cidade
+- 📍 Exibição do clima atual (nome da cidade, descrição, temperatura e ícone)
+- 📆 Previsão para os próximos **5 dias** (1 previsão por dia às 12h)
+- 🌗 Alternância entre tema **claro e escuro**
+- 📱 Responsivo para celular, tablet e desktop
+- ⏳ Feedback de carregamento e tratamento de erros
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Tecnologias utilizadas
+
+- [React.js](https://reactjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [OpenWeatherMap API](https://openweathermap.org/api)
+
+---
+
+## 📦 Instalação e execução local
+
+### Pré-requisitos
+
+- Node.js e npm instalados
+- Conta gratuita na [OpenWeatherMap](https://openweathermap.org/) para obter sua API key
+
+### Passos
+
+```bash
+1. Clone o repositório:
+git clone https://github.com/seu-usuario/clima-do-dia.git
+cd clima-do-dia
+
+2. Instale as dependências:
+npm install
+
+2. Instale as dependências:
+npm install
+
+3. Inicie o projeto em ambiente de desenvolvimento:
+npm run dev
+
+## 💡 Melhorias futuras
+- Sugestões de cidades (autocomplete)
+- Localização por GPS
+- Sensação térmica e velocidade do vento
+- Histórico de buscas recentes
+
