@@ -45,6 +45,7 @@ npm install
 
 3. Inicie o projeto em ambiente de desenvolvimento:
 npm run dev
+```
 
 ## 💡 Melhorias futuras
 - Sugestões de cidades (autocomplete)
