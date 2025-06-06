@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import SearchForm from "./components/SearchForm";
 import WeatherCard from "./components/WeatherCard";
 import ForecastList from "./components/ForecastList";
+
+import "./index.css";
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
@@ -11,56 +13,63 @@ function App() {
   const [previsao, setPrevisao] = useState([]);
   const [darkMode, setDarkMode] = useState(false);
 
-  const buscarClima = async (cidade) => {
-    try {
-      const respostaAtual = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${API_KEY}&units=metric&lang=pt_br`
-      );
-      const dadosAtuais = await respostaAtual.json();
-      setClima(dadosAtuais);
+  // Ao montar, define o tema automático ou do localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem("theme");
+    const hora = new Date().getHours();
+    const isNight = hora >= 18 || hora < 6;
 
-      const respostaPrevisao = await fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${cidade}&appid=${API_KEY}&units=metric&lang=pt_br`
-      );
-      const dadosPrevisao = await respostaPrevisao.json();
+    if (saved === "dark" || (!saved && isNight)) {
+      document.documentElement.classList.add("dark");
+      setDarkMode(true);
+    } else {
+      document.documentElement.classList.remove("dark");
+      setDarkMode(false);
+    }
+  }, []);
 
-      const previsoesFiltradas = dadosPrevisao.list.filter((p) =>
-        p.dt_txt.includes("12:00:00")
-      );
-      setPrevisao(previsoesFiltradas);
-    } catch (error) {
-      console.error("Erro ao buscar dados:", error);
+  const toggleDarkMode = () => {
+    const novoModo = !darkMode;
+    setDarkMode(novoModo);
+
+    if (novoModo) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
     }
   };
 
-  const toggleDarkMode = () => setDarkMode((prev) => !prev);
+  const buscarClima = async (cidade) => {
+    try {
+      const respAtual = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${API_KEY}&units=metric&lang=pt_br`
+      );
+      const dadosAtuais = await respAtual.json();
+      setClima(dadosAtuais);
+
+      const respPrev = await fetch(
+        `https://api.openweathermap.org/data/2.5/forecast?q=${cidade}&appid=${API_KEY}&units=metric&lang=pt_br`
+      );
+      const dadosPrev = await respPrev.json();
+
+      const previsoesFiltradas = dadosPrev.list
+        .filter((p) => p.dt_txt.includes("12:00:00"))
+        .slice(0, 5);
+      setPrevisao(previsoesFiltradas);
+    } catch (err) {
+      console.error("Erro ao buscar dados:", err);
+    }
+  };
 
   return (
-    <div className={darkMode ? "dark" : ""}>
-      <main
-        className="min-h-screen flex flex-col items-center justify-start gap-6 p-4 
-        bg-gradient-to-br from-blue-100 to-blue-300 dark:from-slate-900
-        dark:to-slate-800 transition-all"
-      >
-        <Header toggleDarkMode={toggleDarkMode} />
-
-        <div className="w-full max-w-md mx-auto">
-          <SearchForm onSearch={buscarClima} />
-        </div>
-
-        {clima && (
-          <div className="w-full max-w-xs sm:max-w-md md:max-w-2xl mx-auto">
-            <WeatherCard clima={clima} />
-          </div>
-        )}
-
-        {previsao.length > 0 && (
-          <div className="w-full max-w-6xl mx-auto">
-            <ForecastList previsoes={previsao} />
-          </div>
-        )}
-      </main>
-    </div>
+    <main className="min-h-screen flex flex-col items-center gap-6 p-4 bg-gradient-to-br from-blue-100 to-blue-300 dark:from-slate-900 dark:to-slate-800 transition-all">
+      <Header toggleDarkMode={toggleDarkMode} />
+      <SearchForm onSearch={buscarClima} />
+      {clima && <WeatherCard clima={clima} />}
+      {previsao.length > 0 && <ForecastList previsoes={previsao} />}
+    </main>
   );
 }
 

@@ -6,7 +6,7 @@ function Header({ toggleDarkMode }) {
   return (
     <header className="w-full max-w-2xl mx-auto text-center p-4 flex flex-row justify-evenly gap-4">
       {/* Título do app */}
-      <h1 className="text-3xl font-bold text-gray-800 dark:text-white">Clima do Dia ☀️</h1>
+      <h1 className="text-3xl font-bold text-gray-800 dark:text-white">Clima do Dia</h1>
 
       {/* Botão para alternar o tema */}
       <button
