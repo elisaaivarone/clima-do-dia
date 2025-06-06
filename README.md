@@ -40,9 +40,6 @@ cd clima-do-dia
 2. Instale as dependências:
 npm install
 
-2. Instale as dependências:
-npm install
-
 3. Inicie o projeto em ambiente de desenvolvimento:
 npm run dev
 ```
